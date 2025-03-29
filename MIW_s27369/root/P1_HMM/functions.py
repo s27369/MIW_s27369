@@ -55,7 +55,7 @@ def yield_opponent_moves(n:int, probabilities, starting_state, states, prnt=Fals
 #---------------------------train/test-------------------------------
 def train_model(model, n, start_state, opponent_probabilities, states, prnt=False):
     prev_move = start_state
-    for new_move in yield_opponent_moves(n, opponent_probabilities, prev_move, states, True):
+    for new_move in yield_opponent_moves(n, opponent_probabilities, prev_move, states, prnt):
         model.train_model(prev_move, new_move)
         if prnt:
             print(model)
@@ -67,7 +67,7 @@ def test_model(model, n, start_state, opponent_probabilities, states, prnt=False
     prev_move = start_state
     balance = 0
     results.append(balance)
-    for opp_move in yield_opponent_moves(n, opponent_probabilities, prev_move, states, True):
+    for opp_move in yield_opponent_moves(n, opponent_probabilities, prev_move, states, prnt):
         model_move = model.play(prev_move)
         balance = get_result(model_move, opp_move, balance, prnt)
         results.append(balance)
@@ -76,7 +76,17 @@ def test_model(model, n, start_state, opponent_probabilities, states, prnt=False
 #------------------------------plot----------------------------------
 def plot_results(results):
     plt.plot(results)
+    plt.title("Balance vs games played")
+    plt.xlabel("Games played")
+    plt.ylabel("Balance")
+    r = max(results) - min(results)
+    bot = min(results)-int(r/10))
+    plt.yticks(range(round(, max(results)+int(r/10), 5))
+    plt.axhline(results[-1])
+    plt.text(0, results[-1]+1, f"final: {results[-1]}")
+    plt.axhline(0)
     plt.show()
+    plt.savefig("plot.png")
 # def occurences_to_numpy(occurences:dict)->np.array:
 #     return np.array(
 #         [[v for v in x.values()] for x in occurences.values()]
