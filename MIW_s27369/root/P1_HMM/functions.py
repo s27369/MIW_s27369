@@ -1,5 +1,4 @@
 import numpy as np
-import random
 import matplotlib.pyplot as plt
 #---------------------------game-------------------------------
 def get_result(my_state, opponent_state, balance, prnt=False):
@@ -80,23 +79,27 @@ def plot_results(results):
     plt.xlabel("Games played")
     plt.ylabel("Balance")
     r = max(results) - min(results)
-    bot = min(results)-int(r/10))
-    plt.yticks(range(round(, max(results)+int(r/10), 5))
+    plt.yticks(range(round(min(results)-int(r/10)), max(results)+int(r/10), 5))
     plt.axhline(results[-1])
     plt.text(0, results[-1]+1, f"final: {results[-1]}")
     plt.axhline(0)
-    plt.show()
     plt.savefig("plot.png")
-# def occurences_to_numpy(occurences:dict)->np.array:
-#     return np.array(
-#         [[v for v in x.values()] for x in occurences.values()]
-#     )
-#
-# def normalize_occurences(occurences:np.array)->np.array:
-#     result = np.array([
-#         [],[],[]
-#     ])
-#
-#     for row in occurences:
-#         total = np.sum(row)
-#         result
+    plt.show()
+
+def summarize_results(results):
+    losses= [results[x] for x in range(len(results)-1)  if results[x+1]<results[x]]
+    wins= [results[x] for x in range(len(results)-1) if results[x+1]>results[x]]
+    draws = [results[x] for x in range(len(results)-1) if results[x+1]==results[x]]
+    print("Losses: {}".format(len(losses)))
+    print("Wins: {}".format(len(wins)))
+    print("Draws: {}".format(len(draws)))
+    print("Total: {}".format(len(losses)+len(wins)+len(draws)))
+
+def get_avg_results(n_tests, test_size, model, start_state, opponent_probabilities, states, prnt=False):
+    results = []
+    for i in range(n_tests):
+        test = test_model(model, test_size, start_state, opponent_probabilities, states, prnt)
+        results.append(test[-1])
+    avg = sum(results)/len(results)
+    print(f"Average results after {n_tests} tests: {avg}")
+    return

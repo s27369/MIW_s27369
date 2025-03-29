@@ -6,8 +6,7 @@ class HMM:
         self.observations = {}
         for state in self.states:
             self.probabilities[state] = {x:1/len(self.states) for x in self.states} #makes moves based on probabilities
-            #opponent actions
-            self.observations[state] = {x:0 for x in self.states}
+            self.observations[state] = {x:0 for x in self.states} #opponent actions
 
     #---------------------------train---------------------------------
     def train_model(self, prev_move, new_move):
@@ -21,10 +20,6 @@ class HMM:
         if total > 0:
             for key in self.probabilities[prev_move].keys():
                 self.probabilities[prev_move][key] = self.observations[prev_move][key] / total
-            # self.probabilities[prev_move] = {
-            #     x: self.observations[prev_move][new_move] / total
-            #     for x in self.probabilities[prev_move].keys()
-            # }
         else:
             raise ZeroDivisionError("Total of row {} = 0".format(prev_move))
     #---------------------------move---------------------------------
