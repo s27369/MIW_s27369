@@ -1,9 +1,9 @@
 import numpy as np
 import random
-
+import matplotlib.pyplot as plt
 #---------------------------game-------------------------------
-def get_result(my_state, opponent_state, prnt=False):
-    global balance, loss, win
+def get_result(my_state, opponent_state, balance, prnt=False):
+    loss, win = -1, 1
     if my_state == opponent_state:
         result = "Draw"
     elif (
@@ -18,6 +18,7 @@ def get_result(my_state, opponent_state, prnt=False):
         balance = balance + win
 
     if prnt: print(f'{result}! Balance: {balance}')
+    return balance
 
 def get_counter(state):
     if state == "Rock":
@@ -50,11 +51,36 @@ def yield_opponent_moves(n:int, probabilities, starting_state, states, prnt=Fals
         prev = curr
         if prnt: print("opp move: {}".format(curr))
         yield curr
-#---------------------------other-------------------------------
-def occurences_to_numpy(occurences:dict)->np.array:
-    return np.array(
-        [[v for v in x.values()] for x in occurences.values()]
-    )
+
+#---------------------------train/test-------------------------------
+def train_model(model, n, start_state, opponent_probabilities, states, prnt=False):
+    prev_move = start_state
+    for new_move in yield_opponent_moves(n, opponent_probabilities, prev_move, states, True):
+        model.train_model(prev_move, new_move)
+        if prnt:
+            print(model)
+            print()
+        prev_move=new_move
+
+def test_model(model, n, start_state, opponent_probabilities, states, prnt=False):
+    results = []
+    prev_move = start_state
+    balance = 0
+    results.append(balance)
+    for opp_move in yield_opponent_moves(n, opponent_probabilities, prev_move, states, True):
+        model_move = model.play(prev_move)
+        balance = get_result(model_move, opp_move, balance, prnt)
+        results.append(balance)
+
+    return results
+#------------------------------plot----------------------------------
+def plot_results(results):
+    plt.plot(results)
+    plt.show()
+# def occurences_to_numpy(occurences:dict)->np.array:
+#     return np.array(
+#         [[v for v in x.values()] for x in occurences.values()]
+#     )
 #
 # def normalize_occurences(occurences:np.array)->np.array:
 #     result = np.array([

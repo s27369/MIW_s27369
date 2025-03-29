@@ -25,9 +25,10 @@ opponent_probabilities = {
 if __name__ == "__main__":
     model = HMM()
     print(model)
-    prev_move = "Rock"
-    for new_move in yield_opponent_moves(10, opponent_probabilities, "Rock", states, True):
-        model.train_model(prev_move, new_move)
-        print(model)
-        print()
-        prev_move=new_move
+    start_state = "Rock"
+    train_model(model, 100000, start_state, opponent_probabilities, states, False)
+    print(model)
+    print()
+
+    results = test_model(model, 1000, start_state, opponent_probabilities, states, False)
+    plot_results(results)

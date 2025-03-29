@@ -19,10 +19,12 @@ class HMM:
     def update_probabilities(self, prev_move, new_move):
         total = sum(self.observations[prev_move].values())
         if total > 0:
-            self.probabilities[prev_move] = {
-                x: self.observations[prev_move][new_move] / total
-                for x in self.probabilities[prev_move].keys()
-            }
+            for key in self.probabilities[prev_move].keys():
+                self.probabilities[prev_move][key] = self.observations[prev_move][key] / total
+            # self.probabilities[prev_move] = {
+            #     x: self.observations[prev_move][new_move] / total
+            #     for x in self.probabilities[prev_move].keys()
+            # }
         else:
             raise ZeroDivisionError("Total of row {} = 0".format(prev_move))
     #---------------------------move---------------------------------
@@ -46,6 +48,10 @@ class HMM:
         msg = "HMM {\nprobabilities:\n"
         for state in self.probabilities.items():
             msg+=f"{state}\n"
-        return msg+"}"
+
+        msg+="\nobservations:\n"
+        for state in self.observations.items():
+            msg+=f"{state}\n"
+        return msg+"}\n"
 
 
