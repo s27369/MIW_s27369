@@ -1,0 +1,3 @@
+Napisz klasyfikator wielo-klasowy (SOFTMAX) przy użyciu regresji logistycznej.
+Dla każdej z klas użyj klasyfikatora binarnego. Przykład regresji logistycznej dla przypadku dwuklasowego jest w pliku reglog.py
+Dla regresji logistycznej napisz metodę wypisującą unormowane prawdopodobieństwo przynależności próbki (próbek) do danej klasy (klas).
