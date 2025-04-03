@@ -19,15 +19,18 @@ if __name__=="__main__":
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     #3
     depth_range = range(1, 11)
-    dtc_values_gini = evaluate_tree_depths(DecisionTreeClassifier, "gini", depth_range, X_train, y_train, X_test, y_test)
-    dtc_values_entropy = evaluate_tree_depths(DecisionTreeClassifier, "entropy", depth_range, X_train, y_train, X_test, y_test)
+    # dtc_values_gini = evaluate_tree_depths(DecisionTreeClassifier, "gini", depth_range, X_train, y_train, X_test, y_test)
+    # dtc_values_entropy = evaluate_tree_depths(DecisionTreeClassifier, "entropy", depth_range, X_train, y_train, X_test, y_test)
+    #
+    # plot_metric("DecisionTreeClassifier", "gini", dtc_values_gini, depth_range, "DTC_plot_gini.png")
+    # plot_metric("DecisionTreeClassifier", "entropy", dtc_values_entropy, depth_range, "DTC_plot_entropy.png")
+    # plot_metric_comparison("DecisionTreeClassifier", "gini", "entropy", dtc_values_gini, dtc_values_entropy, depth_range, "DTC_plot_comparison.png")
+    #
+    # #4
+    # rfc_values_gini = evaluate_tree_depths(RandomForestClassifier, "gini", depth_range, X_train, y_train, X_test, y_test)
+    # rfc_values_entropy = evaluate_tree_depths(RandomForestClassifier, "gini", depth_range, X_train, y_train, X_test, y_test)
+    # plot_metric("RandomForestClassifier", "gini", rfc_values_gini, depth_range, "RFC_plot_entropy.png")
+    # plot_metric("RandomForestClassifier", "entropy", rfc_values_entropy, depth_range, "RFC_plot_entropy.png")
+    # plot_metric_comparison("RandomForestClassifier", "gini", "entropy", rfc_values_gini, rfc_values_entropy, depth_range, "RFC_plot_comparison.png")
 
-    # plot_metric("DecisionTreeClassifier", "gini", dtc_gini_values, depth_range)
-    # plot_metric("DecisionTreeClassifier", "entropy", dtc_entropy_values, depth_range)
-    plot_metric_comparison("DecisionTreeClassifier", "gini", "entropy", dtc_values_gini, dtc_values_entropy, depth_range, "DTC_plot_comparison.png")
-
-    #4
-    rfc_values_gini = evaluate_tree_depths(RandomForestClassifier, "gini", depth_range, X_train, y_train, X_test, y_test)
-    rfc_values_entropy = evaluate_tree_depths(RandomForestClassifier, "gini", depth_range, X_train, y_train, X_test, y_test)
-    plot_metric("RandomForestClassifier", "gini", rfc_values_gini, depth_range, "RFC_plot_entropy.png")
-    plot_metric("RandomForestClassifier", "gini", rfc_values_entropy, depth_range, "RFC_plot_gini.png")
+    #5
