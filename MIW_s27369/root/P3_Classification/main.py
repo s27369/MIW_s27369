@@ -1,6 +1,10 @@
 from sklearn import datasets
+
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn import svm
+
 from sklearn.model_selection import train_test_split
 from functions import *
 
@@ -14,7 +18,7 @@ if __name__=="__main__":
     data = datasets.make_moons(n_samples, noise=noise)
     X, y = data
     print(len(X), len(y))
-    plot_data("make_moons", X, y, "data.png")
+    # plot_data("make_moons", X, y, "data.png")
     #2
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     #3
@@ -34,3 +38,13 @@ if __name__=="__main__":
     # plot_metric_comparison("RandomForestClassifier", "gini", "entropy", rfc_values_gini, rfc_values_entropy, depth_range, "RFC_plot_comparison.png")
 
     #5
+    model_logreg = LogisticRegression()
+    acc_logreg = fit_and_eval(model_logreg, X_train, y_train, X_test, y_test)
+    print_model_acc("LogisticRegression", acc_logreg)
+
+    model_svc = svm.SVC()
+    acc_svc = fit_and_eval(model_svc, X_train, y_train, X_test, y_test)
+    print_model_acc("SVC", acc_svc)
+
+    #6
+

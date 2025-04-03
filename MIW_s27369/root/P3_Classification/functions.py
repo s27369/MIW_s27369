@@ -28,6 +28,9 @@ def plot_metric(model_name:str, metric_name:str, metric_values:list, depths:list
         plt.savefig(output_name)
     plt.show()
 
+def print_model_acc(model:str, acc:float):
+    print(f"{model} accuracy: {str(acc)}")
+
 def plot_data(dataset_name, X:list, y:list, output_name=None) ->None:
     plt.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", edgecolors="k", alpha=0.3)
     plt.title(dataset_name)
