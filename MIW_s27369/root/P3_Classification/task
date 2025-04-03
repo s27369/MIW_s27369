@@ -1,0 +1,20 @@
+1. Utwórz zbiór danych, korzystając z
+make_moons(n_samples=10000, noise=0.4),
+
+2. Podziel zbiór danych na podzbiory treningowe i testowe,
+korzystając z metody train_test_split(),
+
+3. Użyj drzewa jako klasyfikatora DecisionTreeClassifier.
+Zbadaj działanie drzewa pod kątem entropii
+i współczynnika Giniego oraz różnych głębokości drzewa,
+
+4. Użyj lasów losowych jako klasyfikatora (RandomForestClassifier).
+Przetestuj wydajność klasyfikatora dla różnej liczby drzew decyzyjnych,
+
+5. Wytrenuj klasyfikator regresji logistycznej (LogisticRegression) i SVM,
+
+6. Połącz klasyfikatory SVM,
+{LogisticRegression i RandomForestClassifier w jedną grupę VotingClassifier,
+ aby poprawić klasyfikację.
+
+7. Oceń uzyskane wyniki.
