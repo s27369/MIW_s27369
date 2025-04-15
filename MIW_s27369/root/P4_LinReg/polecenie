@@ -1,0 +1,7 @@
+Wczytaj dane z pliku daneXX.txta ( gdzie XX jest numerem zestawu).
+Zaproponuj i zrealizuj podział tych danych na dane treningowe i dane testowe,
+Zaproponuj liniowy model parametryczny Model 1. Określ parametry modelu stosując metodę najmniejszych kwadratów dla danych treningowych,
+Zweryfikuj poprawność Modelu 1,
+Zaproponuj bardziej złożony model parametryczny Model 2. Określ parametry modelu stosując metodę najmniejszych kwadratów dla danych treningowych,
+Zweryfikuj poprawność Modelu 2,
+Porównaj oba modele
