@@ -1,0 +1,10 @@
+1. Dla notowań giełdowych spółki ...................  , zaproponuj i wdróż podział tych danych na dane treningowe i testowe,
+
+2. Zaproponuj liniowy model autoregresyjny (model AR), który uwzględnia kilka poprzednich notowań spółki (nie więcej niż 50). Określ parametry modelu, używając metody najmniejszych kwadratów. Zweryfikuj poprawność modelu,
+
+3. Zaproponuj rekurencyjną sieć neuronową do przewidywania notowań. Naucz sieć (użyj znanych Ci technik uczenia sieci, takich jak porzucenie, skalowanie itp.). Zweryfikuj poprawność modelu,
+
+4. Do przewidywania notowań użyj dodatkowych danych (np. wolumenu lub WIG),
+Porównaj modele AR i rekurencyjne sieci neuronowe.
+
+Opcjonalnie, ten projekt lub uczenie bez nadzoru (w przyszłym tygodniu).
