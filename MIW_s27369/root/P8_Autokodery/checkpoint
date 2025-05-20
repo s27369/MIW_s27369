@@ -1,0 +1,2 @@
+model_checkpoint_path: "wagi"
+all_model_checkpoint_paths: "wagi"

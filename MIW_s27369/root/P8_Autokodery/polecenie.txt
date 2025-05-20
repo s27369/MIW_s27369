@@ -1,0 +1,11 @@
+-Zaproponuj autokoder i wytrenuj go za pomocą danych treningowych w oparciu o bazę danych minst (pomijając etykiety),
+
+-Usuń ostatnie warstwy autokodera, pozostawiając tylko koder,
+
+-Oblicz odpowiedź kodera i wygeneruj kod dla danych wejściowych,
+
+-Użyj analizy KNN, aby określić klastry danych dla swojego kodu. Możesz analizować prawidłową liczbę grup,
+
+-Dla 10 klastrów (10 cyfr) oznacz dane wejściowe,
+
+-Porównaj swoje wyniki z oryginalnymi etykietami

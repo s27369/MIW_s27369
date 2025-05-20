@@ -1,0 +1,46 @@
+DROPOUT, L1, L2:
+    -Dropout
+        To technika przeciwdziałająca przeuczeniu (overfitting).
+        Podczas treningu w każdej iteracji (batch’u) losowo „wyłączamy” (ustawiamy na zero) pewien procent neuronów w warstwie.
+        Dzięki temu sieć nie polega nadmiernie na pojedynczych połączeniach, lecz uczy się bardziej „rozproszonych” reprezentacji.
+        Przy predykcji (czyli w trybie inference) wszystkie neurony są włączone, ale ich wyjścia są skalowane tak, żeby odpowiadać temu, co sieć widziała w czasie treningu.
+
+    -Regularizacja L1/L2
+        To kary dodawane do funkcji straty, które penalizują duże wartości wag sieci:
+            -L1 (Lasso): kara proporcjonalna do sumy bezwzględnych wartości wag, λ∑∣wi∣. W efekcie wiele wag staje się równe zero → rzadkie rozwiązanie (sparsity).
+            -L2 (Ridge): kara proporcjonalna do sumy kwadratów wag, λ∑wi^2. Wypycha wagi ku małym wartościom, co sprawia, że sieć generalizuje lepiej, ale zwykle nie zeruje ich całkowicie.
+
+    -Gdzie i czy w ogóle dodawać Dropout / L1 / L2?
+        Czy w ogóle?
+            Dodajesz te regularizacje wtedy, gdy widzisz oznaki przeuczenia (overfitting):
+            np. tren loss ciągle spada, ale val loss rośnie. Jeśli model nie overfituje, możesz się wstrzymać
+
+    -W Kerasie stosuje się je np. tak:
+        Dense(64, activation='relu',
+          kernel_regularizer=tf.keras.regularizers.l2(1e-4),
+          activity_regularizer=tf.keras.regularizers.l1(1e-5))
+
+-Co robi np.expand_dims(x_train, -1)?
+    -x_train z MNIST to tablica kształtu (liczba_próbek, 28, 28).
+    -Warstwy konwolucyjne i Input(shape=(28,28,1)) wymagają czterowymiarowego tensora (batch, height, width, channels).
+    -np.expand_dims(..., -1) dodaje nową oś na końcu kształtu, dając (liczba_próbek, 28, 28, 1). W ten sposób piksele traktujemy jako jednokanałowe (skala szarości).
+
+-Co robią poszczególne warstwy?
+    -Input(shape=...)
+        Definiuje wierzchołek grafu obliczeń – miejsce, gdzie sieć „przyjmuje” dane.
+    -Flatten()
+        Przekształca wielowymiarowy tensor (tu: 28×28×1) w wektor jednowymiarowy (tu: 784), tak by można było użyć zwykłej warstwy Dense.
+    -Dense(units, activation)
+        Gęsta (fully‑connected) warstwa neuronowa: każdy neuron bierze jako wejście cały poprzedni wektor, mnoży przez swoją wagę, sumuje, dodaje bias i aplikuje funkcję aktywacji.
+    -Reshape((28,28,1))
+        Odwraca Flatten(): z wektora 784 przywraca kształt obrazu 28×28×1, żeby wyjście autoencodera miało ten sam format co oryginał.
+
+Dlaczego podczas fit podajemy dwa razy x_train?
+    autoencoder.fit(
+        x_train,  # dane wejściowe
+        x_train,  # etykiety – tu to samo, bo chcemy zrekonstruować wejście
+        ...
+    )
+    Autoencoder to model uczący się odwzorowywać dane wejściowe na wyjście identyczne jak wejście. Stąd zarówno y_true (target), jak i x to ta sama tablica.
+
+“Inertia” to suma kwadratów odległości każdego punktu od środka (centroidu) klastra, do którego został przypisany
